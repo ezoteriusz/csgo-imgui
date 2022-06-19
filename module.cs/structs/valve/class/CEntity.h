@@ -72,6 +72,8 @@ public:
 	NETVAR(getRecoilPunchAngle,"CBasePlayer->m_aimPunchAngle",vec3_t)
 	NETVAR(getRecoilViewPunchAngle,"CBasePlayer->m_viewPunchAngle",vec3_t)
 	NETVAR(netvarAciveWeapon,"CCSPlayer->m_hActiveWeapon",int)
+	NETVAR(getEntityFlashTime,"CCSPlayer->m_flFlashDuration",float)
+	NETVAR(getEntityMoney,"CCSPlayer->m_iAccount",int)
 	//EXT
 	void* networkable() {
 		return reinterpret_cast<void*>(uintptr_t(this) + 0x8);
@@ -97,6 +99,11 @@ public:
 	bool isDormant() {
 		using original_fn = bool(__thiscall*)(void*);
 		return (*static_cast<original_fn**>(networkable()))[9](networkable());
+	}
+	bool isFlashed()
+	{
+		if (!this) return false;
+		return this->getEntityFlashTime() > 0;
 	}
 
 };

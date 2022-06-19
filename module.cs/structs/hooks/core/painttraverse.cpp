@@ -14,8 +14,6 @@ void __stdcall paintTraverse::hkPaintTraverseHook(unsigned int panel, bool force
 			render::text(w / 2,h / 2 + 370, render::fonts::watermark_font, "debug build", true, color::white(190));
 		}
 		PlayerEsp::render();
-		//menu::toggle();
-		//menu::render();
 		break;
 
 	case fnv::hash("FocusOverlayPanel"):

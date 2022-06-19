@@ -87,8 +87,52 @@ void PlayerEsp::esp(CEntity* entity)
 
 		std::string name_lower = entInfo.name;
 		std::transform(name_lower.begin(), name_lower.end(), name_lower.begin(), ::tolower);
-		render::text(bbox.x + (bbox.w / 2), bbox.y - 13, render::fonts::watermark_font, print, true,entity->isDormant() ? history : color(255,255,255,255));
+		render::text(bbox.x + (bbox.w / 2), bbox.y - 13, render::fonts::esp_flags, print, true,entity->isDormant() ? history : color(255,255,255,255));
 	}
+
+	if (vars::esp::flags)
+	{
+		std::string Money = std::to_string(entity->getEntityMoney());
+		std::string Flashed = std::to_string(entity->isFlashed());
+		std::string IsScoped = std::to_string(entity->isScoped());
+
+		int MoneyH = render::get_text_size(render::fonts::esp_flags, "$" + Money).y;
+		int FlashedH = render::get_text_size(render::fonts::esp_flags, Flashed).y;
+		int ScopedH = render::get_text_size(render::fonts::esp_flags, IsScoped).y;
+
+		if (entity->isFlashed())
+		{
+			Flashed = "*blind*";
+		}
+		else {
+			Flashed = "";
+			FlashedH = 0;
+		}
+
+		if (entity->isScoped())
+		{
+			IsScoped = "*zoom*";
+		}
+		else {
+			ScopedH = 0;
+			IsScoped = "";
+		}
+
+		if (vars::esp::flagsSelect[2])
+		{
+			render::text(bbox.x + bbox.w + 5, bbox.y + 2, render::fonts::esp_flags, "$" + Money, false, color(77, 219, 115));
+		}
+		if (vars::esp::flagsSelect[1])
+		{
+			render::text(bbox.x + bbox.w + 5, bbox.y + 2 + MoneyH + 1, render::fonts::esp_flags, IsScoped, false, color(110, 153, 230));
+		}
+		if (vars::esp::flagsSelect[0])
+		{
+			render::text(bbox.x + bbox.w + 5, bbox.y + 2 + ScopedH + 1 + +MoneyH + 1, render::fonts::esp_flags, Flashed, false, color(110, 153, 230));
+		}
+	}
+
+
 	if (vars::esp::healthbar)
 	{
 		auto health_color = color((255 - entity->getEntityHealth() * 2.55), (entity->getEntityHealth() * 2.55), 0, 255);
@@ -103,6 +147,8 @@ void PlayerEsp::esp(CEntity* entity)
 		{
 			render::text(temp2.x - 7, temp2.y - 2, render::fonts::watermark_font, healthStr, true, entity->isDormant() ? history : color(health_color));
 		}
-
 	}
+
+
+
 }

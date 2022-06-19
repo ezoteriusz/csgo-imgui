@@ -36,5 +36,6 @@ namespace render {
 
 	namespace fonts {
 		extern unsigned long watermark_font;
+		extern unsigned long esp_flags;
 	}
 }

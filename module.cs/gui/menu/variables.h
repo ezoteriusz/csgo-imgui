@@ -14,6 +14,8 @@ namespace vars {
 		inline bool healthbar = false;
 		inline bool showtext = false;
 		inline bool glow = false;
+		inline bool flags = false;
+		inline bool flagsSelect[3];
 		inline float glowRGB[3];
 	}
 }

@@ -1,12 +1,14 @@
 #include "renderer.h"
 
 unsigned long render::fonts::watermark_font;
+unsigned long render::fonts::esp_flags;
 
 void render::initialize() {
 	render::fonts::watermark_font = gInterfaces.surface->font_create();
+	render::fonts::esp_flags = gInterfaces.surface->font_create();
 
 	gInterfaces.surface->set_font_glyph(render::fonts::watermark_font, "Consolas", 12, 500, 0, 0, font_flags::fontflag_outline);
-
+	gInterfaces.surface->set_font_glyph(render::fonts::esp_flags, "Consolas", 11, 500, 0, 0, font_flags::fontflag_outline);
 	std::cout<<"[LOG] Render Initialized!\n";
 }
 

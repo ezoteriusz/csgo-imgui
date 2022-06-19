@@ -3,9 +3,11 @@
 #include "../../structs/hooks/hooks.h"
 #include "variables.h"
 
-static const char* items[]("Flash", "Recoil","Scope");
+static const char* items[]("Flash", "Recoil" ,"Scope");
+static const char* itemsFlags[]("Flashed", "Scoped","Money");
 static int selectedItem = 0;
 static std::string previwValue;
+static std::string previewValueFlags;
 static void HelpMarker(const char* desc)
 {
 	ImGui::TextDisabled("(?)");
@@ -153,6 +155,35 @@ namespace menu
 			if (vars::esp::healthbar) {
 				ImGui::Checkbox("show text", &vars::esp::showtext);
 			}
+			ImGui::Checkbox("Flags", &vars::esp::flags);
+			if (vars::esp::flags) {
+				if (ImGui::BeginCombo("Player Conds", previewValueFlags.c_str()))
+				{
+					previewValueFlags = "";
+					std::vector<std::string> vec;
+					for (size_t i = 0; i < IM_ARRAYSIZE(itemsFlags); i++)
+					{
+						ImGui::Selectable(itemsFlags[i], &vars::esp::flagsSelect[i], ImGuiSelectableFlags_::ImGuiSelectableFlags_DontClosePopups);
+						if (vars::esp::flagsSelect[i])
+							vec.push_back(itemsFlags[i]);
+
+					}
+					for (size_t i = 0; i < vec.size(); i++)
+					{
+						if (vec.size() == 1)
+							previewValueFlags += vec.at(i);
+						else if (!(i == vec.size()))
+							previewValueFlags += vec.at(i) + ",";
+						else
+							previewValueFlags += vec.at(i);
+					}
+
+
+					ImGui::EndCombo();
+				}
+			}
+
+
 			ImGui::Checkbox("player box", &vars::esp::box);
 			ImGui::Separator();
 			ImGui::Text("glow");
@@ -170,7 +201,6 @@ namespace menu
 			ImGui::Checkbox("watermark", &vars::misc::watermark);
 			ImGui::Separator();
 			ImGui::Text("removals");
-
 			if (ImGui::BeginCombo("Items",previwValue.c_str()))
 			{
 				previwValue = "";
