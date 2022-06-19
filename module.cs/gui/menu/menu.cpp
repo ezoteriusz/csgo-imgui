@@ -167,6 +167,7 @@ namespace menu
 			ImGui::Separator();
 			ImGui::Text("misc");
 			ImGui::Checkbox("force radar", &vars::misc::radarhack);
+			ImGui::Checkbox("watermark", &vars::misc::watermark);
 			ImGui::Separator();
 			ImGui::Text("removals");
 

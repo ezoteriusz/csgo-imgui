@@ -4,6 +4,7 @@ namespace vars {
 	namespace misc {
 		inline bool bhop = false;
 		inline bool radarhack = false;
+		inline bool watermark = false;
 		inline bool removalsSelect[3];
 	}
 	namespace esp {
